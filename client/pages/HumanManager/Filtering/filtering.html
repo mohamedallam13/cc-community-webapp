@@ -8,11 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Community by CC</title>
+    <? const FilteringCSS = "client/pages/filtering/filtering-css"?>
+    <?!= MW.include(FilteringCSS) ?>
 </head>
 
 <body>
-    <? const Collapsible = "components/Collapsible/Collapsible"?>
-    <?!= include(Collapsible) ?>
+    <? const Collapsible = "client/components/Collapsible/Collapsible"?>
+    <?!= MW.include(Collapsible) ?>
 </body>
-
+<? const FilteringJS = "client/pages/filtering/filtering-js"?>
+<?!= MW.include(FilteringJS) ?>
 </html>
