@@ -1,12 +1,15 @@
-<? const CollapsibleCSS = "client/components/Collapsible/Collapsible-Header-css" ?>
-<? Object.entries(detailsSection).forEach(function(([,detailElement])){ ?>
-    <? const {sectionHeader, content} = ?>
+<? const CollapsibleBodyCSS = "client/components/Collapsible/Collapsible-Body-css" ?>
+
+<?!= MW.include(CollapsibleBodyCSS) ?>
+
+<? Object.entries(detailsSection).forEach(function([,detailElement]){ ?>
+    <? const {sectionHeader, content} = detailElement ?>
     <h1><?= sectionHeader ?></h1>
-    <? content.forEach(function(detailElement) ?>
-        <?    const {type, label, value} = detailElement ?>
+    <? content.forEach(function(detailElement) {?>
+        <? const {type, label, value} = detailElement ?>
         <? if(type == 'row') {?>
             <p><?= label ?>:<?= value ?></p>
-        <? }else if(type == 'paragaph') ?>
+        <? }else if(type == 'paragaph'){?>
             <p><?= label ?><br><?= value ?></p>
         <? } ?>
     <? }) ?>

@@ -1,4 +1,6 @@
-<? const CollapsibleCSS = "client/components/Collapsible/Collapsible-Header-css" ?>
+<? const CollapsibleHeaderCSS = "client/components/Collapsible/Collapsible-Header-css" ?>
 
-<p><?= name.label?>:<?= name.value?></p>
-<p><?= age.label?>:<?= age.value?></p>
+<?!= MW.include(CollapsibleHeaderCSS) ?>
+
+<p><?= name.label?>:<?= name.value ?></p>
+<p><?= age.label?>:<?= age.value ?></p>
