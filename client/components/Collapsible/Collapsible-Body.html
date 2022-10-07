@@ -1,0 +1,13 @@
+<? const CollapsibleCSS = "client/components/Collapsible/Collapsible-Header-css" ?>
+<? Object.entries(detailsSection).forEach(function(([,detailElement])){ ?>
+    <? const {sectionHeader, content} = ?>
+    <h1><?= sectionHeader ?></h1>
+    <? content.forEach(function(detailElement) ?>
+        <?    const {type, label, value} = detailElement ?>
+        <? if(type == 'row') {?>
+            <p><?= label ?>:<?= value ?></p>
+        <? }else if(type == 'paragaph') ?>
+            <p><?= label ?><br><?= value ?></p>
+        <? } ?>
+    <? }) ?>
+<? }) ?>
