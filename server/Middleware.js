@@ -15,8 +15,20 @@
     return fileTemplate.evaluate().setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
   }
 
+  function getGDriveImgById(id) {
+    return `https://drive.google.com/uc?export=view&id=${id}`
+  }
+
+  function getGDriveImgByLink(link) {
+    const [, idSide] = link.split('d/');
+    const [id] = idSide.split('/')
+    return getGDriveImgById(id)
+  }
+
   return {
     include,
-    render
+    render,
+    getGDriveImgById,
+    getGDriveImgByLink
   }
 })

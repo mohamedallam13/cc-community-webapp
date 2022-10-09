@@ -1,0 +1,42 @@
+<? const NavbarCSS = "client/components/Navbar/Navbar-css" ?>
+<? const NavbarJS = "client/components/Navbar/Navbar-js" ?>
+<? Bell = "client/icons/bell" ?>
+<? Messaging = "client/icons/messaging" ?>
+<? Gear = "client/icons/gear" ?>
+<? Search = "client/icons/search" ?>
+<? Logo = MW.getGDriveImgByLink("https://drive.google.com/file/d/1IWjr_BT9AHYKtohthre-lM-MmM3PzUhD/view?usp=sharing") ?>
+
+<?!= MW.include(NavbarCSS) ?>
+<div class="navbar">
+    <div class="logo">
+        <img src=<?=Logo ?> >
+    </div>
+    <div class="wrapper">
+        <div class="search">
+            <input type="text" placeholder="Search..." class="">
+            <div class="searchIcon">
+                <?!= MW.include(Search) ?>
+            </div>
+        </div>
+        <div class="items">
+            <!-- Make a loop here -->
+            <div class="item">
+                <div class="bell-icon">
+                    <?!= MW.include(Bell) ?>
+                </div>
+                <div class="counter">1</div>
+            </div>
+            <div class="item">
+                <div class="messaging-icon">
+                    <?!= MW.include(Messaging) ?>
+                </div>
+                <div class="counter">1</div>
+            </div>
+            <div class="item">
+                <div class="gear-icon">
+                    <?!= MW.include(Gear) ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
