@@ -1,2 +1,17 @@
 <? const CollapsibleCSS = "client/components/Collapsible/Collapsible-css" ?>
+<? const CollapsibleHeader = "client/components/Collapsible/Collapsible-Header"?>
+<? const CollapsibleBody = "client/components/Collapsible/Collapsible-Body"?>
+
 <?!= MW.include(CollapsibleCSS) ?>
+<div class="collapsible">
+    <div class="collapsible-item">
+        <div class="collapsible-item-header">
+            <?!= MW.include(CollapsibleHeader, headerSection) ?>
+        </div>
+        <div class="collapsible-item-body">
+            <div class="collapsible-item-body-content">
+                <?!= MW.include(CollapsibleBody, detailsSection) ?>
+            </div>
+        </div>
+    </div>
+</div>
