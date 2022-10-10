@@ -1,16 +1,35 @@
 <? const CollapsibleBodyCSS = "client/components/Collapsible/Collapsible-Body-css" ?>
 
 <?!= MW.include(CollapsibleBodyCSS) ?>
-
-<? Object.entries(detailsSection).forEach(function([,detailElement]){ ?>
-    <? const {sectionHeader, content} = detailElement ?>
-    <h1><?= sectionHeader ?></h1>
-    <? content.forEach(function(detailElement) {?>
-        <? const {type, label, value} = detailElement ?>
-        <? if(type == 'row') {?>
-            <p><?= label ?>:<?= value ?></p>
-        <? }else if(type == 'paragaph'){?>
-            <p><?= label ?><br><?= value ?></p>
-        <? } ?>
+<div class="detailed-info">
+    <div class="detailed-info-content">
+    <? Object.entries(detailsSection).forEach(function([,detailElement]){ ?>
+        <? const {sectionHeader, content} = detailElement ?>
+        <div class="details-section-header">
+            <h1><?= sectionHeader ?></h1>
+        </div>
+        <? content.forEach(function(contentElement) { ?>
+            <? const {type, label, value} = contentElement ?>
+            <? if (type == "paragraph"){ ?>
+                <div class="details-paragraph">
+                    <p><?= label ?></p><p><?= value ?></p>
+                </div>
+                <? }else{ ?>
+                <div class="details-row">
+                    <p><?= label ?>: <?= value ?></p>
+                </div>
+            <? } ?>
+        <? }) ?>
     <? }) ?>
-<? }) ?>
+    </div>
+    <div class="commenting-section">
+        <h1>Comments</h1>
+        <div class="comments"></div>
+        <div class="add-comment">
+            <div class="comment-input">
+                <textarea placeholder="add commment.." name="" id="" cols="30" rows="10"></textarea>
+            </div>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">add comment</button>
+        </div>
+    </div>
+</div>

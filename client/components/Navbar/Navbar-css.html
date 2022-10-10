@@ -26,7 +26,7 @@
     }
 
     .navbar .item {
-        padding: 3px;
+        padding: 5px;
         position: relative;
     }
 
@@ -46,16 +46,20 @@
     .navbar .counter{
         width: 15px;
         height: 15px;
-        background-color: red;
-        border-radius: 50%;
-        color: white;
         display: flex;
         text-align: center;
         align-items: center;
+        justify-content: center;
         font-size: 10px;
         font-weight: bold;
         position: absolute;
         top: -2px;
-        right: -2px;
+        right: -1px;
+    }
+
+    .navbar .item .active{
+        background-color: red;
+        border-radius: 50%;
+        color: white;
     }
 </style>

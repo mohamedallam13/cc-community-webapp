@@ -1,6 +1,32 @@
 <? const CollapsibleHeaderCSS = "client/components/Collapsible/Collapsible-Header-css" ?>
+<? const defaultPicture = MW.getGDriveImgByLink("https://drive.google.com/file/d/1XEzG9zVw46R9JwXXYqeyjdVbxlMLN5cb/view?usp=sharing") ?>
 
 <?!= MW.include(CollapsibleHeaderCSS) ?>
+<div class="head-info">
+    <div class="application-picture">
+        <? if(profilePic.value != ""){ ?>
+        <img src=<?=MW.getGDriveImgById(profilePic.value) ?> >
+        <? }else{ ?>
+        <img src=<?=defaultPicture ?> >
+        <? } ?>
+    </div>
+    <div class="head-details-section">
+        <h1>
+            <?= name.value ?>
+        </h1>
+        <p>
+            <?= age.label?>:
+            <?= age.value ?>
+        </p>
+        <p>
+            <?= phone.label?>:
+            <?= phone.value ?>
+        </p>
+        <p>
+            <?= facebook.label?>: <a href="<?= facebook.link ?>" target="_blank">
+                <?= facebook.value ?>
+            </a>
+        </p>
+    </div>
 
-<p><?= name.label?>:<?= name.value ?></p>
-<p><?= age.label?>:<?= age.value ?></p>
+</div>

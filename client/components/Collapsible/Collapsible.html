@@ -1,12 +1,31 @@
 <? const CollapsibleCSS = "client/components/Collapsible/Collapsible-css" ?>
 <? const CollapsibleHeader = "client/components/Collapsible/Collapsible-Header"?>
 <? const CollapsibleBody = "client/components/Collapsible/Collapsible-Body"?>
+<? const thumbsUp = "client/icons/hand-thumb-up" ?>
+<? const thumbsDown = "client/icons/hand-thumb-down" ?>
+<? const minusCircle = "client/icons/minus-circle" ?>
 
 <?!= MW.include(CollapsibleCSS) ?>
 <div class="collapsible">
     <div class="collapsible-item">
         <div class="collapsible-item-header">
-            <?!= MW.include(CollapsibleHeader, headerSection) ?>
+            <div class="check-box-section">
+                <input type="checkbox" class="select-row">
+            </div>
+            <div class="collapsible-item-header-content">
+                <?!= MW.include(CollapsibleHeader, headerSection) ?>
+            </div>
+            <div class="decision-section">
+                <div class="decision-button d-b-accept">
+                    <?!= MW.include(thumbsUp) ?>
+                </div>
+                <div class="decision-button d-b-defer">
+                    <?!= MW.include(minusCircle) ?>
+                </div>
+                <div class="decision-button d-b-reject">
+                    <?!= MW.include(thumbsDown) ?>
+                </div>
+            </div>
         </div>
         <div class="collapsible-item-body">
             <div class="collapsible-item-body-content">
