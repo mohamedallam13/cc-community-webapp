@@ -32,3 +32,10 @@
     getGDriveImgByLink
   }
 })
+
+function inc(file, props = {}) {
+  console.log(file)
+  var template = HtmlService.createTemplateFromFile(file);
+  Object.assign(template, props);
+  return template.evaluate().getContent()
+}

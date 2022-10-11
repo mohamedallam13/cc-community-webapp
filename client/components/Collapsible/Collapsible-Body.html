@@ -1,4 +1,5 @@
 <? const CollapsibleBodyCSS = "client/components/Collapsible/Collapsible-Body-css" ?>
+<? const Comment = "client/components/Comment/Comment" ?>
 
 <?!= MW.include(CollapsibleBodyCSS) ?>
 <div class="detailed-info">
@@ -12,7 +13,8 @@
             <? const {type, label, value} = contentElement ?>
             <? if (type == "paragraph"){ ?>
                 <div class="details-paragraph">
-                    <p><?= label ?></p><p><?= value ?></p>
+                    <div class="answer-label"><?= label ?></div>
+                    <div class="answer-value"><?= value ?></div>
                 </div>
                 <? }else{ ?>
                 <div class="details-row">
@@ -24,10 +26,18 @@
     </div>
     <div class="commenting-section">
         <h1>Comments</h1>
-        <div class="comments"></div>
+        <? if(comments.length == 0){ ?>
+            <div class="comments">No comments yet..</div>
+        <? }else{ ?>
+            <div class="comments">
+                <?  comments.forEach(comment=>{ ?>
+                    <?!= inc(Comment,comment) ?>
+                <?  }) ?>
+            </div>
+        <? } ?>
         <div class="add-comment">
             <div class="comment-input">
-                <textarea placeholder="add commment.." name="" id="" cols="30" rows="10"></textarea>
+                <textarea placeholder="add a commment.." name="" id="" cols="30" rows="10"></textarea>
             </div>
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">add comment</button>
         </div>
