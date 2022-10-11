@@ -1,0 +1,31 @@
+<style>
+    .filters-collapsible {
+        width: 90%;
+        max-width: 1000px;
+        margin: 2rem;
+        background-color: #fff;
+        color: #111;
+        margin: 1rem 0;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .filters-header {
+        display: flex;
+        justify-content: center;
+        background-color: whitesmoke;
+    }
+
+
+    .filters-header::after {
+        content: "\25BA";
+        font-size: 2rem;
+        position: absolute;
+        right: 1rem;
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .filters-header.active::after {
+        transform: rotate(-90deg);
+    }
+</style>
