@@ -4,7 +4,7 @@
 <? const Tabs = "client/components/Tabs/Tabs"?>
 <? const FilteringJS = "client/pages/HumanManager/Filtering/filtering-js"?>
 
-<?!= MW.include(FilteringCSS) ?>
+<?!= inc(FilteringCSS) ?>
 
 <div class="stages">
     <?!= inc(Tabs,{stages}) ?>
@@ -17,4 +17,4 @@
         <?!= inc(Collapsible, entry) ?>
     <? }) ?>
 </div>
-<?!= MW.include(FilteringJS) ?>
+<?!= inc(FilteringJS) ?>

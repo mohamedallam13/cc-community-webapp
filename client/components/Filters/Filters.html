@@ -1,11 +1,14 @@
 <? const FiltersCSS = "client/components/Filters/Filters-css" ?>
+<? const FiltersJS = "client/components/Filters/Filters-js" ?>
 
 <?!= inc(FiltersCSS) ?>
 <div class="filters-collapsible">
-    <div class="filter-header">
-        <div class="filters-title">Filters</div>
+    <div class="filters-header">
+        <div class="filters-header-content">Filters</div>
     </div>
-    <div class="filter-body">
-        <div class="filter-body">Body</div>
+    <div class="filters-body">
+        <div class="filters-body-content">Body</div>
     </div>
 </div>
+
+<?!= inc(FiltersJS) ?>

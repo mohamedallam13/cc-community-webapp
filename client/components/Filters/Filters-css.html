@@ -1,8 +1,5 @@
 <style>
     .filters-collapsible {
-        width: 90%;
-        max-width: 1000px;
-        margin: 2rem;
         background-color: #fff;
         color: #111;
         margin: 1rem 0;
@@ -12,20 +9,36 @@
 
     .filters-header {
         display: flex;
-        justify-content: center;
+        margin-left: 5px;
+        justify-content: space-between;
         background-color: whitesmoke;
+        cursor: pointer;
+        font-size: x-large;
+        position: relative;
     }
 
+    .filters-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
 
-    .filters-header::after {
+    .filters-body-content {
+        padding: 1rem;
+        line-height: 1.5rem;
+        border-top: 1px solid;
+        border-image: linear-gradient(to right, transparent, #34495e, transparent) 1;
+    }
+
+    .filters-header-content::after {
         content: "\25BA";
-        font-size: 2rem;
+        font-size: 1rem;
         position: absolute;
         right: 1rem;
         transition: transform 0.2s ease-in-out;
     }
 
-    .filters-header.active::after {
-        transform: rotate(-90deg);
+    .filters-header.active .filters-header-content::after {
+        transform: rotate(90deg);
     }
 </style>
