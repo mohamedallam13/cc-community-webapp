@@ -1,6 +1,14 @@
 {
     "scriptId": "13AwUNpOLhbVebd9njsrK2ZHKU8r0FDxxqexrvw0pRArKOAG6cmm7iO-g",
     "filePushOrder": [
+        "server/Backend/DBHandler.js",
+        "server/Backend/ORM.js",
+        "server/Backend/Models- Confessions.js",
+        "server/Backend/Models- CCONE.js",
+        "server/Backend/Models- Applications.js",
+        "server/Backend/Controller- All.js",
+        "server/Backend/Router- GScript.js",
+
         "server/HMLogic/Main.js",
         "server/ENV.js",
         "server/Middleware.js",

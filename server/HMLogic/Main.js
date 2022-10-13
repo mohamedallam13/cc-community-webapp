@@ -2,43 +2,52 @@
     root.HUMAN_MANAGER = factory()
 })(this, function () {
 
-    const { Toolkit, _, modulesRequire, REFERENCES_MANAGER } = CCLIBRARIES
+    const { Toolkit, _, REFERENCES_MANAGER } = CCLIBRARIES
     const { readFromJSON, writeToJSON } = Toolkit
-    const REQUIRED_REFERENCES = ["divisionsProperties"];
+    const REQUIRED_REFERENCES = ["divisionsProperties", "deployedScripts"];
+    const MASTER_FILE_INDEX = "1ohC9kPnMxyptp8SadRBGAofibGiYTTev"
 
-    let CCAPPLICATIONSBACKEND
+    // let CCAPPLICATIONSBACKEND
 
     let referencesObj
     let configs
 
     const getReferences = function () {
         getRequiredIndexes();
-        getRequiredScripts();
+        // getRequiredScripts();
     }
 
-    function getRequiredIndexes({ divisionId, divisionType }) {
-        referencesObj = REFERENCES_MANAGER.defaultReferences.requireFiles(REQUIRED_REFERENCES).requiredFiles;
+    function getRequiredIndexes() {
+        referencesObj = REFERENCES_MANAGER.init(MASTER_FILE_INDEX).requireFiles(REQUIRED_REFERENCES).requiredFiles;
+    }
+
+    // function getRequiredScripts() {
+    //     const ccApplicationsBackend = referencesObj.deployedScripts.fileContent.CCAPPLICATIONSBACKEND;
+    //     CCAPPLICATIONSBACKEND = modulesRequire(ccApplicationsBackend);
+    // }
+
+    function getConfigs({ divisionId, divisionType }) {
         configs = referencesObj.divisionsProperties.fileContent[divisionType][divisionId];
     }
 
-    function getRequiredScripts() {
-        const ccApplicationsBackend = referencesObj.deployedScripts.fileContent.CCAPPLICATIONSBACKEND;
-        CCAPPLICATIONSBACKEND = modulesRequire(ccApplicationsBackend);
-    }
-
     function getAllEntries({ eventId, divisionId, divisionType }) {
-        getReferences({ eventId, divisionId, divisionType });
-        const response = getEntries({ eventId, divisionId, divisionType });
+        getReferences();
+        getConfigs({ divisionId, divisionType })
+        const response = APPLICATIONSBACKEND.handleRequest({path:"getAllFullApplications", eventId, divisionId, divisionType})
         if (!response) return []
         const { data } = response;
         const mappedData = getMappedData(data);
         return mappedData;
     }
 
-    function getEntries(request) {
-        const response = CCAPPLICATIONSBACKEND.post({ ...request, path: "getFullApplications" })
-        if (response.sourceError) {
+    function getEntry(request) {
+        getReferences();
+        const response = APPLICATIONSBACKEND.handleRequest(request)
+        console.log(response.data)
+        // const response = GSCRIPT_ROUTER.route(request)
+        if (response.sourceError || response.fetchError) {
             console.log(response.sourceError);
+            console.log(response.fetchError);
             return
         }
         return response
@@ -48,7 +57,8 @@
         const { filteringMap } = configs;
         const mappedData = data.map(entry => {
             const mappedDataObj = {}
-            return replaceValue(filteringMap, entry, mappedDataObj)
+            replaceValue(filteringMap, entry, mappedDataObj)
+            return mappedDataObj
         })
         return mappedData
     }
@@ -56,7 +66,7 @@
     function replaceValue(obj, entry, mappedDataObj) {
         if (Array.isArray(obj)) {
             return obj.map(element => {
-                return replaceValue(element, entry)
+                return replaceValue(element, entry, {})
             })
         } else if (typeof obj == 'object') {
             if (obj.hasOwnProperty("value")) {
@@ -65,7 +75,7 @@
                 return { ...obj, value }
             } else {
                 Object.entries(obj).forEach(([key, subObj]) => {
-                    mappedDataObj[key] = replaceValue(subObj, entry)
+                    mappedDataObj[key] = replaceValue(subObj, entry, {})
 
                 })
                 return mappedDataObj;
@@ -80,10 +90,9 @@
         const path = value.split(".");
         let returnValue
         path.forEach(param => {
-            if (Array.isArray(entry[param])) {
-                returnValue = entry[param][0]
-            } else {
-                returnValue = returnValue ? returnValue[param] : entry[param]
+            returnValue = returnValue ? returnValue[param] : entry[param]
+            if (Array.isArray(returnValue)) {
+                returnValue = returnValue[0]
             }
         })
         return returnValue || ""
@@ -92,6 +101,20 @@
 
 
     return {
-        getAllEntries
+        getAllEntries,
+        getEntry
     }
 })
+
+function getAllEntries() {
+    const allEntriesToWrite = HUMAN_MANAGER.getAllEntries({ divisionType: "Activities", divisionId: "CCG", eventId: "SIR3" });
+    console.log(allEntriesToWrite)
+}
+
+function getEntry() {
+    HUMAN_MANAGER.getEntry({ path: "getFullApplicationByEmail", divisionType: "Activities", divisionId: "CCG", eventId: "SIR2", email: "mahmoud.salama77@gmail.com" })
+}
+
+function testCompile(){
+    console.log("Compiled!")
+}

@@ -12,6 +12,12 @@
         "userSymbol": "Gexpress",
         "version": "36",
         "libraryId": "1Lm_jNmD2FWYF-Kgj7AdHVvLEVXZ4c5AXwzd1KJSb48scn0HLBq64um7S"
+      },
+      {
+        "userSymbol": "APPLICATIONSBACKEND",
+        "version": "0",
+        "libraryId": "1okytPXaZ1vJMeFsOWA8AbhXdVRTu0CtijoIzrKFaIqvlIwaQZy5qZ1-a",
+        "developmentMode": true
       }
     ]
   },
