@@ -20,6 +20,13 @@ app.get(/.*/, function (req, res, next) { // should be routed to filtering page
   res.end()
 })
 
+app.get('prerenders/filtering/:activityDivisionEventId', function (req, res, next) { // should be routed to filtering page
+  const [divisionType, divisionId, eventId] = activityDivisionEventId;
+  const mappedData = getAllEntries({ eventId, divisionId, divisionType });
+  PRERENDER.createPrerenders(path, { entriesArray: mappedData })
+  res.end()
+})
+
 // this hooks Gexpress into appscript 
 function doGet(e) { return app.doGet(e) }
 function doPost(e) { return app.doPost(e) }

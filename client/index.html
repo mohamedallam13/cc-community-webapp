@@ -20,7 +20,11 @@
 
 <body>
     <?!= MW.include(Navbar) ?>
-    <?!= MW.include(routedPage, props) ?>
+    <? if(prerendered){ ?>
+        <?!= MW.include("prerenders", props) ?>
+    <? }else{ ?>
+        <?!= MW.include(routedPage, props) ?>
+    <? } ?>
 </body>
 
 </html>

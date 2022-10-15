@@ -12,6 +12,7 @@
         "server/HMLogic/Main.js",
         "server/ENV.js",
         "server/Middleware.js",
+        "server/Prerender.js",
         "server/Server.js"
     ]
 }
