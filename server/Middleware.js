@@ -9,10 +9,24 @@
     return template.evaluate().getContent()
   }
 
-  function render(file, props = {}) {
+  function render(file, props = {}, options = {}) {
+    const { preventiFrameAll, favIcon, title, metaData } = options;
     const fileTemplate = HtmlService.createTemplateFromFile(file);
     Object.assign(fileTemplate, props);
-    return fileTemplate.evaluate().setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+    const HTMLOutput = fileTemplate.evaluate()
+    if (!preventiFrameAll) HTMLOutput.setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+    console.log(favIcon)
+    if (favIcon) HTMLOutput.setFaviconUrl(favIcon)
+    if (title) HTMLOutput.setTitle(title)
+    if (metaData) addMetaData(HTMLOutput, metaData)
+    return HTMLOutput
+  }
+
+  function addMetaData(HTMLOutput, metaData) {
+    metaData.forEach(metaTag => {
+      const { name, content } = metaTag
+      HTMLOutput.addMetaTag(name, content)
+    })
   }
 
   function getGDriveImgById(id) {

@@ -30,14 +30,19 @@
         configs = referencesObj.divisionsProperties.fileContent[divisionType][divisionId];
     }
 
-    function getAllEntries({ eventId, divisionId, divisionType }) {
+    function getAllMappedEntries({ allEntries, eventId, divisionId, divisionType }) {
         getReferences();
         getConfigs({ divisionId, divisionType })
-        const response = APPLICATIONSBACKEND.handleRequest({path:"getAllFullApplications", eventId, divisionId, divisionType})
+        if (!allEntries) allEntries = getAllEntries({ eventId, divisionId })
+        const mappedData = getMappedData(allEntries);
+        return mappedData;
+    }
+
+    function getAllEntries(){
+        const response = APPLICATIONSBACKEND.handleRequest({ path: "getAllFullApplications", eventId, divisionId })
         if (!response) return []
         const { data } = response;
-        const mappedData = getMappedData(data);
-        return mappedData;
+        return data;
     }
 
     function getEntry(request) {
@@ -101,7 +106,7 @@
 
 
     return {
-        getAllEntries,
+        getAllMappedEntries,
         getEntry
     }
 })
@@ -115,6 +120,6 @@ function getEntry() {
     HUMAN_MANAGER.getEntry({ path: "getFullApplicationByEmail", divisionType: "Activities", divisionId: "CCG", eventId: "SIR2", email: "mahmoud.salama77@gmail.com" })
 }
 
-function testCompile(){
+function testCompile() {
     console.log("Compiled!")
 }
