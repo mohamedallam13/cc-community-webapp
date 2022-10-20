@@ -12,11 +12,11 @@
         return getGDriveImgById(id)
     }
 
-    function getFavIconFromId(id){
-      return `https://drive.google.com/uc?id=${id}&export=download&format=png`
+    function getFavIconFromId(id) {
+        return `https://drive.google.com/uc?id=${id}&export=download&format=png`
     }
-    
-    function getFavIconFromLink(link){
+
+    function getFavIconFromLink(link) {
         const [, idSide] = link.split('d/');
         const [id] = idSide.split('/')
         return getFavIconFromId(id)

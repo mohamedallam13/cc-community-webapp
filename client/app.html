@@ -1,0 +1,33 @@
+<? const Loader = "client/components/Loader/Loader" ?>
+
+<div class="App">
+    <div class="app-loader">
+        <?!= inc(Loader) ?>
+    </div>
+    <div class="app-container">
+    </div>
+</div>
+
+<script>
+    const fetchPage = function () {
+        loaderOn()
+        const user = getUserFromCookie()
+        const path = <?= path ?>
+        const query = <?= query ?>
+        google.script.run
+            .withSuccessHandler(setAppPageContent)
+            .withFailureHandler(setAppPageContentNotFound)
+            .ROUTER.route({ path, query, user })
+    }
+
+    const setAppPageContent = function(HTMLContent){
+        $('.app-container').html(HTMLContent);
+        loaderOff()
+    }
+
+    const getUserFromCookie = function () {
+        const cookie = getCookie()
+    }
+
+    window.onload = fetchPage
+</script>
