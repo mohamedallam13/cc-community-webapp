@@ -3,15 +3,7 @@ const { readFromJSON, writeToJSON } = Toolkit
 
 var app = new Gexpress.App()
 
-const renderOptions = {
-  favIcon:  HELPERS.getFavIconFromLink("https://drive.google.com/file/d/112klNXnqobGTyFlADSVdHSIB7in4b-4F/view?usp=sharing"),
-  metaData: [
-    {
-      name: "viewport",
-      content: "width=device-width, initial-scale=1"
-    }
-  ]
-}
+
 
 // app.get(/.*/, function (req, res, next) { // default to homepage
 //   res.set('content-type', 'text/html')
@@ -56,4 +48,11 @@ function doGet(e) {
   return MW.render('client/index',
     { prerendered: false, routedPage: filteringPath, props: { entriesArray, stages } }
     , { ...renderOptions, title: "Community By CC" })
+}
+
+
+function doGet(e) {
+  const { pathInfo = "", parameters, postData } = e
+  const params = JSON.parse(postData.content);
+  ROUTER.route(pathInfo, parameters, params)
 }

@@ -12,8 +12,10 @@
         "server/HMLogic/Main.js",
         "server/ENV.js",
         "server/Helpers.js",
-        "server/Middleware.js",
         "server/Prerender.js",
+        "server/Middleware.js",
+        "server/Controller.js",
+        "server/Router.js",
         "server/Server.js"
     ]
 }
