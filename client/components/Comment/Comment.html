@@ -1,0 +1,11 @@
+<? const CommentCSS = 'client/components/Comment/Comment-css' ?>
+
+<?!= _I(CommentCSS) ?>
+<div class="comment-box">
+    <div class="comment-text">
+        <?= comment ?>
+    </div>
+    <div class="comment-time-box">
+        <?=  CCLIBRARIES.moment(timestamp).fromNow() ?>
+    </div>
+</div>

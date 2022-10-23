@@ -167,9 +167,9 @@ const PROPS_CONSTANTS = {
         }
     })
 
-    function testLodash(){
-      const lodash = CCLIBRARIES.Toolkit;
-      const arr = [{a:1,type:"a"}, {a:33,type:"a"}, {a:2,type:"b"}, {a:1203,type:"b"}]
-      const grouped = lodash.groupBy(arr)
-      console.log(grouped)
-    }
+function testLodash() {
+    const lodash = CCLIBRARIES.Toolkit;
+    const arr = [{ a: 1, type: "a" }, { a: 33, type: "a" }, { a: 2, type: "b" }, { a: 1203, type: "b" }]
+    const grouped = lodash.groupBy(arr)
+    console.log(grouped)
+}

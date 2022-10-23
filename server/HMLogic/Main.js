@@ -3,7 +3,7 @@
 })(this, function () {
 
     const { Toolkit, _, REFERENCES_MANAGER } = CCLIBRARIES
-    const { readFromJSON, writeToJSON } = Toolkit
+    const { readFromJSON, writeToJSON, keyBy } = Toolkit
     const REQUIRED_REFERENCES = ["divisionsProperties", "deployedScripts"];
     const MASTER_FILE_INDEX = "1ohC9kPnMxyptp8SadRBGAofibGiYTTev"
 
@@ -70,6 +70,7 @@
     }
 
     function augmnentData(mappedDataObj, entry) {
+        mappedDataObj.userId = entry.ccer.id;
         mappedDataObj.comments = entry.applicationComments;
         mappedDataObj.stage = entry.currentStage;
     }
@@ -109,11 +110,27 @@
         return returnValue || ""
     }
 
+    function addComment({ userId, comment }) {
+        const commentPath = 'client/components/Comment/Comment'
+        const timestamp = new Date();
+        addToDB({ userId, commentObj: { comment, timestamp } })
+        const commentHTML = _I(commentPath, { userId, comment, timestamp })
+        return commentHTML
+    }
 
+
+    //TEMP
+    function addToDB({userId, commentObj}) {
+        const entriesId = '1q53NgdwJg68num_cp797D_5greDv4w2v';
+        const entriesArray = readFromJSON(entriesId);
+        entriesArray.forEach(entry => { if (entry.userId == userId) entry.comments.push(commentObj) })
+        writeToJSON(entriesId, entriesArray)
+    }
 
     return {
         getAllMappedEntries,
-        getEntry
+        getEntry,
+        addComment
     }
 })
 
@@ -126,6 +143,8 @@ function getEntry() {
     HUMAN_MANAGER.getEntry({ path: "getFullApplicationByEmail", divisionType: "Activities", divisionId: "CCG", eventId: "SIR2", email: "mahmoud.salama77@gmail.com" })
 }
 
-function testCompile() {
-    console.log("Compiled!")
+function addComment({ userId, comment } = {}) {
+    userId = userId || "abc-1"
+    comment = comment || "Nope"
+    return HUMAN_MANAGER.addComment({ userId, comment })
 }
