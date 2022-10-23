@@ -4,17 +4,17 @@
 <? const Tabs = "client/components/Tabs/Tabs"?>
 <? const FilteringJS = "client/pages/HumanManager/Filtering/filtering-js"?>
 
-<?!= inc(FilteringCSS) ?>
+<?!= _I(FilteringCSS) ?>
 
 <div class="stages">
-    <?!= inc(Tabs,{stages}) ?>
+    <?!= _I(Tabs,{stages}) ?>
 </div>
 <div class="filters">
-    <?!= inc(Filters) ?>
+    <?!= _I(Filters) ?>
 </div>
 <div class="collapsibles">
     <? entriesArray.forEach(function(entry){?>
-        <?!= inc(Collapsible, entry) ?>
+        <?!= _I(Collapsible, entry) ?>
     <? }) ?>
 </div>
-<?!= inc(FilteringJS) ?>
+<?!= _I(FilteringJS) ?>

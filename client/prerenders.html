@@ -15,7 +15,7 @@
         loaderOn()
         google.script.run
             .withSuccessHandler(setHTML)
-            .PRERENDER.loadPrerender(pathForPrerender)
+            .loadPrerender(pathForPrerender)
     }
 
     function setHTML(HTMLContent) {

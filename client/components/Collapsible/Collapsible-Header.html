@@ -1,16 +1,16 @@
 <? const CollapsibleHeaderCSS = "client/components/Collapsible/Collapsible-Header-css" ?>
-<? const defaultPicture = MW.getGDriveImgByLink("https://drive.google.com/file/d/1XEzG9zVw46R9JwXXYqeyjdVbxlMLN5cb/view?usp=sharing") ?>
+<? const defaultPicture = HELPERS.getGDriveImgByLink("https://drive.google.com/file/d/1XEzG9zVw46R9JwXXYqeyjdVbxlMLN5cb/view?usp=sharing") ?>
 <? const cakeIcon = "client/icons/cake" ?>
 <? const phoneIcon = "client/icons/phone" ?>
 <? const emailIcon = "client/icons/email" ?>
 <? const whatsappIcon = "client/icons/whatsappIcon" ?>
 <? const facebookIcon = "client/icons/facebookIcon" ?>
 
-<?!= MW.include(CollapsibleHeaderCSS) ?>
+<?!= _I(CollapsibleHeaderCSS) ?>
 <div class="head-info">
     <div class="application-picture">
         <? if(profilePic.value != ""){ ?>
-        <img src=<?=MW.getGDriveImgById(profilePic.value) ?> >
+        <img src=<?=HELPERS.getGDriveImgById(profilePic.value) ?> >
         <? }else{ ?>
         <img src=<?=defaultPicture ?> >
         <? } ?>
@@ -26,7 +26,7 @@
                 <div class="header-row">
                     <div class="header-icon">
 
-                        <?!= MW.include(cakeIcon) ?>
+                        <?!= _I(cakeIcon) ?>
 
                     </div>
                     <div class="header-info-item">
@@ -38,7 +38,7 @@
                 <div class="header-row">
                     <div class="header-icon">
 
-                        <?!= MW.include(phoneIcon) ?>
+                        <?!= _I(phoneIcon) ?>
 
                     </div>
                     <div class="header-info-item">
@@ -50,7 +50,7 @@
                 <div class="header-row">
                     <div class="header-icon">
 
-                        <?!= MW.include(facebookIcon) ?>
+                        <?!= _I(facebookIcon) ?>
 
                     </div>
                     <div class="header-info-item">
@@ -66,7 +66,7 @@
                 <div class="header-row">
                     <div class="header-icon">
 
-                        <?!= MW.include(emailIcon) ?>
+                        <?!= _I(emailIcon) ?>
 
                     </div>
                     <div class="header-info-item">
@@ -80,7 +80,7 @@
                 <div class="header-row">
                     <div class="header-icon">
 
-                        <?!= MW.include(whatsappIcon) ?>
+                        <?!= _I(whatsappIcon) ?>
 
                     </div>
                     <div class="header-info-item">

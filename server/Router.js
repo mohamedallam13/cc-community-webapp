@@ -4,12 +4,36 @@
 
     const PATHS = {
         children: {
-            app: {
+            devIndex: {
                 children: {
                     admin: {
-                        protected: true,
+                        children: {
+                            testFiltering: {
+                                controller: CONTROLLER.testFiltering_dev
+                            },
+                            _activityDivisionEventId:{
+                                controller: CONTROLLER.getActivityFilteringList_dev
+                            }
+                        }
+                    }
+                }
+
+            },
+            app: {
+                children: {
+                    testIn: {
+                        controller: CONTROLLER.testIn
+                    },
+                    admin: {
+                        // protected: true,
                         protectionReroute: CONTROLLER.getSignInPage,
                         children: {
+                            testFiltering: {
+                                controller: CONTROLLER.testFiltering
+                            },
+                            testProtected: {
+                                controller: CONTROLLER.testIn
+                            },
                             filtering: {
                                 children: {
                                     _activityDivisionEventId: {
@@ -38,10 +62,10 @@
                                 controller: CONTROLLER.verifyMagicLink
                             }
                         }
+                    },
+                    defaultPath: {
+                        controller: CONTROLLER.renderNotFound
                     }
-                },
-                defaultPath: {
-                    controller: CONTROLLER.renderNotFound
                 }
             },
             api: {
@@ -58,8 +82,8 @@
                     controller: null
                 }
             },
-            test:{
-                
+            base: {
+                controller: CONTROLLER.renderApp
             },
             defaultPath: {
                 controller: CONTROLLER.renderApp
@@ -67,46 +91,55 @@
         }
     }
 
-    const route = function (path = "", query, params) {
-        const pathArr = path.split("/") || [];
-        const pathObj = getPathObj(pathArr, query, params)
-        return executePath(pathObj);
+    const route = function (e) {
+        const { path = "", query, params } = getAllParameters(e)
+        const pathArr = path.split("/").filter(el => el != "") || [];
+        const pathObj = getPathObj(pathArr, params)
+        return executePath({ path, query, params }, pathObj);
     }
 
-    const getPathObj = function (pathArr, query, params, currentNode = PATHS) {
-        if (pathArr.length == 0) return { query, params, pathObj: currentNode.children.defaultPath };
+    const getAllParameters = function (e) {
+        const { pathInfo = "", parameters, postData = {} } = e
+        const { content } = postData
+        const params = content ? JSON.parse(postData?.content) : {};
+        return { path: pathInfo, query: parameters, params }
+    }
+
+    const getPathObj = function (pathArr, params, currentNode = PATHS) {
+        if (pathArr.length == 0) return currentNode.children.defaultPath;
         let protected = false;
         for (const node of pathArr) {
-            nextNode = currentNode.children?.[node];
+            let nextNode = currentNode.children?.[node];
             protected = currentNode.protected
             if (protected) {
                 params.protected = currentNode.protectionReroute;
             }
             if (!nextNode) {
                 const pathVariable = findPathVariable(currentNode);
-                if (!pathVariable) return { query, params, pathObj: currentNode.children.defaultPath };
+                if (!pathVariable) return currentNode.children.defaultPath;
                 else {
-                    params = { ...params, [pathVariable]: node }
-                    currentNode = nextNode;
+                    params[pathVariable.replace("_", "")] = node;
+                    currentNode = currentNode.children?.[pathVariable];
                 }
             } else {
+                if (!nextNode.children) return nextNode
                 currentNode = nextNode;
             }
         }
-        return { query, params, pathObj: currentNode.children.defaultPath };
+        return currentNode;
     }
 
     const findPathVariable = function (currentNode) {
-        const firstVariable = Object.keys(currentNode.children).find(value => /^_/.test(value));
+        const firstVariable = Object.keys(currentNode.children = {}).find(value => /^_/.test(value));
         return firstVariable;
     }
 
-    const executePath = function (query, params, pathObj) {
-        const req = { query, params }
+    const executePath = function ({ path, query, params }, pathObj) {
+        const req = { path, query, params }
         const res = { code: 400, success: false }
         let callBack;
-        if (!pathObj.controller) callBack = CONTROLLER.getHome
-        else if (params.protected && !params.session.user) callBack = params.protected;
+        if (!pathObj.controller) callBack = CONTROLLER.renderApp
+        else if (params.protected && !params.session?.user) callBack = params.protected;
         else callBack = pathObj.controller;
         return callBack(req, res);
     }
@@ -115,3 +148,22 @@
         route
     }
 })
+
+const testRouting = function () {
+    const e = {
+        pathInfo: "app",
+        postData: {
+            content: JSON.stringify({
+                session: {
+
+                },
+                route: "testRouteOut"
+            })
+        }
+    }
+    ROUTER.route(e)
+}
+
+const routeString = function (e) {
+    return ROUTER.route(e).getContent();
+}

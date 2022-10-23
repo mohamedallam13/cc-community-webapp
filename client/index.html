@@ -2,13 +2,13 @@
 <? const Navbar = 'client/components/Navbar/Navbar' ?>
 
 
-<?!= MW.include(indexCSS) ?>
+<?!= _I(indexCSS) ?>
 
 <div class="index">
-    <?!= MW.include(Navbar) ?>
+    <?!= _I(Navbar) ?>
     <? if(prerendered){ ?>
-    <?!= MW.include("prerenders", props) ?>
+    <?!= _I("prerenders", props) ?>
     <? }else{ ?>
-    <?!= MW.include(routedPage, props) ?>
+    <?!= _I(routedPage, props) ?>
     <? } ?>
 </div>

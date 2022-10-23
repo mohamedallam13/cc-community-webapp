@@ -41,3 +41,7 @@
         loadPrerender
     }
 })
+
+const loadPrerender = function(path){
+    PRERENDER.loadPrerender(path)
+}

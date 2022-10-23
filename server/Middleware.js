@@ -19,6 +19,7 @@
     if (favIcon) HTMLOutput.setFaviconUrl(favIcon)
     if (title) HTMLOutput.setTitle(title)
     if (metaData) addMetaData(HTMLOutput, metaData)
+    console.log(HTMLOutput.getContent())
     return HTMLOutput
   }
 
@@ -29,27 +30,12 @@
     })
   }
 
-  function getGDriveImgById(id) {
-    return `https://drive.google.com/uc?export=view&id=${id}`
-  }
-
-  function getGDriveImgByLink(link) {
-    const [, idSide] = link.split('d/');
-    const [id] = idSide.split('/')
-    return getGDriveImgById(id)
-  }
-
   return {
     include,
-    render,
-    getGDriveImgById,
-    getGDriveImgByLink
+    render
   }
 })
 
-function inc(file, props = {}) {
-  console.log(file)
-  var template = HtmlService.createTemplateFromFile(file);
-  Object.assign(template, props);
-  return template.evaluate().getContent()
+function _I(file, props = {}) {
+  return MW.include(file, props)
 }

@@ -4,9 +4,9 @@
 <? Messaging = "client/icons/messaging" ?>
 <? Gear = "client/icons/gear" ?>
 <? Search = "client/icons/search" ?>
-<? Logo = MW.getGDriveImgByLink("https://drive.google.com/file/d/1IWjr_BT9AHYKtohthre-lM-MmM3PzUhD/view?usp=sharing") ?>
+<? Logo = HELPERS.getGDriveImgByLink("https://drive.google.com/file/d/1IWjr_BT9AHYKtohthre-lM-MmM3PzUhD/view?usp=sharing") ?>
 
-<?!= MW.include(NavbarCSS) ?>
+<?!= _I(NavbarCSS) ?>
 <div class="navbar">
     <div class="logo">
         <img src=<?=Logo ?> >
@@ -15,26 +15,26 @@
         <div class="search">
             <input type="text" placeholder="Search..." class="">
             <div class="searchIcon">
-                <?!= MW.include(Search) ?>
+                <?!= _I(Search) ?>
             </div>
         </div>
         <div class="items">
             <!-- Make a loop here -->
             <div class="item">
                 <div class="bell-icon">
-                    <?!= MW.include(Bell) ?>
+                    <?!= _I(Bell) ?>
                 </div>
                 <div class="counter active">1</div>
             </div>
             <div class="item">
                 <div class="messaging-icon">
-                    <?!= MW.include(Messaging) ?>
+                    <?!= _I(Messaging) ?>
                 </div>
                 <div class="counter active">1</div>
             </div>
             <div class="item">
                 <div class="gear-icon">
-                    <?!= MW.include(Gear) ?>
+                    <?!= _I(Gear) ?>
                 </div>
             </div>
         </div>

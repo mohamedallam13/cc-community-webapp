@@ -5,7 +5,7 @@
 <? const thumbsDown = "client/icons/hand-thumb-down" ?>
 <? const minusCircle = "client/icons/minus-circle" ?>
 
-<?!= MW.include(CollapsibleCSS) ?>
+<?!=_I(CollapsibleCSS) ?>
 <div class="collapsible">
     <div class="collapsible-item">
         <div class="collapsible-item-header">
@@ -13,23 +13,23 @@
                 <input type="checkbox" class="select-row">
             </div>
             <div class="collapsible-item-header-content">
-                <?!= MW.include(CollapsibleHeader, headerSection) ?>
+                <?!= _I(CollapsibleHeader, headerSection) ?>
             </div>
             <div class="decision-section">
                 <div class="decision-button d-b-accept">
-                    <?!= MW.include(thumbsUp) ?>
+                    <?!= _I(thumbsUp) ?>
                 </div>
                 <div class="decision-button d-b-defer">
-                    <?!= MW.include(minusCircle) ?>
+                    <?!= _I(minusCircle) ?>
                 </div>
                 <div class="decision-button d-b-reject">
-                    <?!= MW.include(thumbsDown) ?>
+                    <?!= _I(thumbsDown) ?>
                 </div>
             </div>
         </div>
         <div class="collapsible-item-body">
             <div class="collapsible-item-body-content">
-                <?!= MW.include(CollapsibleBody, {detailsSection, comments}) ?>
+                <?!= _I(CollapsibleBody, {detailsSection, comments}) ?>
             </div>
         </div>
     </div>

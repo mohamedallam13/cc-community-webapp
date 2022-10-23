@@ -1,7 +1,7 @@
 <? const CollapsibleBodyCSS = "client/components/Collapsible/Collapsible-Body-css" ?>
 <? const Comment = "client/components/Comment/Comment" ?>
 
-<?!= MW.include(CollapsibleBodyCSS) ?>
+<?!= _I(CollapsibleBodyCSS) ?>
 <div class="detailed-info">
     <div class="detailed-info-content">
     <? Object.entries(detailsSection).forEach(function([,detailElement]){ ?>
@@ -31,7 +31,7 @@
         <? }else{ ?>
             <div class="comments">
                 <?  comments.forEach(comment=>{ ?>
-                    <?!= inc(Comment,comment) ?>
+                    <?!= _I(Comment,comment) ?>
                 <?  }) ?>
             </div>
         <? } ?>
