@@ -1,11 +1,47 @@
 <style>
-    .tabs{
-        width: 90%;
+    .tabs-header {
         display: flex;
-        border: 1px solid darkgrey;
-        border-radius: 15px;
+        color: black;
+        margin-left: 5px;
         justify-content: space-between;
         background-color: whitesmoke;
-        color: rgb(57, 54, 54)
+        cursor: pointer;
+        font-size: x-large;
+        position: relative;
+    }
+
+    .tabs-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        border-image: linear-gradient(to right, transparent, #34495e, transparent) 1;
+    }
+
+    .tabs {
+        width: 100%;
+        padding: 3px;
+        display: flex;
+        border: 1px solid darkgrey;
+        border-radius: 0 0 15px 15px;
+        justify-content: space-between;
+        background-color: whitesmoke;
+        color: rgb(57, 54, 54);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    }
+
+    .stage-tab {
+        width: 10vw;
+        border: 1px solid darkgrey;
+        border-radius: 15px;
+        background-color: rgb(241, 241, 241);
+        cursor: pointer;
+        text-align: center;
+        text-justify: auto;
+
+    }
+
+    .stage-tab.active {
+        background-color: grey;
+        color: white;
     }
 </style>

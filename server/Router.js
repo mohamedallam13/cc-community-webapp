@@ -11,7 +11,7 @@
                             testFiltering: {
                                 controller: CONTROLLER.testFiltering_dev
                             },
-                            _activityDivisionEventId:{
+                            _activityDivisionEventId: {
                                 controller: CONTROLLER.getActivityFilteringList_dev
                             }
                         }
@@ -22,7 +22,12 @@
             app: {
                 children: {
                     testIn: {
-                        controller: CONTROLLER.testIn
+                        controller: CONTROLLER.testIn,
+                        children: {
+                            _testVariable: {
+                                controller: CONTROLLER.testIn
+                            }
+                        }
                     },
                     admin: {
                         // protected: true,
@@ -86,7 +91,7 @@
                 controller: CONTROLLER.renderApp
             },
             defaultPath: {
-                controller: CONTROLLER.renderApp
+                controller: CONTROLLER.renderNotFound
             }
         }
     }
@@ -106,6 +111,7 @@
     }
 
     const getPathObj = function (pathArr, params, currentNode = PATHS) {
+        const rootDefault = currentNode.children.defaultPath;
         if (pathArr.length == 0) return currentNode.children.defaultPath;
         let protected = false;
         for (const node of pathArr) {
@@ -116,7 +122,7 @@
             }
             if (!nextNode) {
                 const pathVariable = findPathVariable(currentNode);
-                if (!pathVariable) return currentNode.children.defaultPath;
+                if (!pathVariable) return currentNode.children?.defaultPath || rootDefault;
                 else {
                     params[pathVariable.replace("_", "")] = node;
                     currentNode = currentNode.children?.[pathVariable];
@@ -130,7 +136,8 @@
     }
 
     const findPathVariable = function (currentNode) {
-        const firstVariable = Object.keys(currentNode.children = {}).find(value => /^_/.test(value));
+        if (!currentNode.children) return null
+        const firstVariable = Object.keys(currentNode.children).find(value => /^_/.test(value));
         return firstVariable;
     }
 
@@ -151,7 +158,7 @@
 
 const testRouting = function () {
     const e = {
-        pathInfo: "app",
+        pathInfo: "devIndex/admin/Activities-CCG-SIR2",
         postData: {
             content: JSON.stringify({
                 session: {

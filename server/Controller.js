@@ -9,7 +9,7 @@ const RENDER_OPTIONS = {
 }
 
 const PROPS_CONSTANTS = {
-    scriptURL: ScriptApp.getService().getURL()
+    scriptURL: ScriptApp.getService().getUrl()
 }
 
     ; (function (root, factory) {
@@ -17,7 +17,7 @@ const PROPS_CONSTANTS = {
     })(this, function () {
 
         const { Toolkit } = CCLIBRARIES
-        const { readFromJSON, writeToJSON } = Toolkit
+        const { readFromJSON, writeToJSON, groupBy } = Toolkit
 
 
 
@@ -51,27 +51,34 @@ const PROPS_CONSTANTS = {
         const testFiltering = function (req, res) {
             const entriesId = '1q53NgdwJg68num_cp797D_5greDv4w2v'
             const entriesArray = readFromJSON(entriesId)
+            const dataByStage = groupBy(entriesArray, "stage")
             const stages = ['screening', 'interview', 'panel', 'final']
             const filteringPath = 'client/pages/HumanManager/Filtering/filtering'
             return MW.render('client/index',
-                { prerendered: false, routedPage: filteringPath, props: { entriesArray, stages } })
+                { prerendered: false, routedPage: filteringPath, props: { dataByStage, stages } })
         }
 
         const testFiltering_dev = function (req, res) {
             const entriesId = '1q53NgdwJg68num_cp797D_5greDv4w2v'
             const entriesArray = readFromJSON(entriesId)
+            const dataByStage = groupBy(entriesArray, "stage")
             const stages = ['screening', 'interview', 'panel', 'final']
             const filteringPath = 'client/pages/HumanManager/Filtering/filtering'
             return MW.render('client/devIndex',
-                { prerendered: false, routedPage: filteringPath, props: { ...PROPS_CONSTANTS, entriesArray, stages } })
+                { ...PROPS_CONSTANTS, routedPage: filteringPath, prerendered: false, props: { dataByStage, stages } })
         }
+
+        // TESTING  Non prerendered (Hot) (from App)
 
         const getActivityFilteringList_dev = function (req) {
             const { activityDivisionEventId } = req.params;
             const [divisionType, divisionId, eventId] = activityDivisionEventId.split("-");
-            if(!divisionType || !divisionId ||!eventId) return MW.render('client/index', { routedPage: "client/notFound", props: { prerendered: false } })
-            const mappedData = HUMAN_MANAGER.getAllMappedEntries({ allEntries, eventId, divisionId, divisionType });
-            return MW.render('client/index', { routedPage: "client/Filtering/filtering", props: { prerendered: false, entriesArray: mappedData } })
+            if (!divisionType || !divisionId || !eventId) return MW.render('client/devIndex', { routedPage: "client/notFound", props: { prerendered: false } })
+            const mappedData = HUMAN_MANAGER.getAllMappedEntries({ eventId, divisionId, divisionType });
+            const dataByStage = groupBy(mappedData, "stage")
+            const stages = ['screening', 'interview', 'panel', 'final']
+            const filteringPath = 'client/pages/HumanManager/Filtering/filtering'
+            return MW.render('client/devIndex', { ...PROPS_CONSTANTS, routedPage: filteringPath, prerendered: false, props: { dataByStage, stages } })
         }
 
         // Non prerendered (Hot) (from App)
@@ -80,7 +87,9 @@ const PROPS_CONSTANTS = {
             const { activityDivisionEventId } = req.params;
             const [divisionType, divisionId, eventId] = activityDivisionEventId.split("-");
             const mappedData = HUMAN_MANAGER.getAllMappedEntries({ allEntries, eventId, divisionId, divisionType });
-            return MW.render('client/index', { routedPage: "client/Filtering/filtering", props: { prerendered: false, entriesArray: mappedData } })
+            const stages = ['screening', 'interview', 'panel', 'final']
+            const filteringPath = 'client/pages/HumanManager/Filtering/filtering'
+            return MW.render('client/index', { ...PROPS_CONSTANTS, routedPage: filteringPath, prerendered: false, props: { prerendered: false, entriesArray: mappedData, stages } })
         }
 
         // Prerendered (from App)
@@ -133,9 +142,16 @@ const PROPS_CONSTANTS = {
             //if yes load userId from DB
         }
 
+        // Errors
+
+        const renderNotFound = function (req) {
+            console.log("Not Found!")
+        }
+
 
         return {
             renderApp,
+            renderNotFound,
             testFiltering,
             getActivityFilteringList,
             getPrerenderedPaths,
@@ -150,3 +166,10 @@ const PROPS_CONSTANTS = {
             getActivityFilteringList_dev
         }
     })
+
+    function testLodash(){
+      const lodash = CCLIBRARIES.Toolkit;
+      const arr = [{a:1,type:"a"}, {a:33,type:"a"}, {a:2,type:"b"}, {a:1203,type:"b"}]
+      const grouped = lodash.groupBy(arr)
+      console.log(grouped)
+    }

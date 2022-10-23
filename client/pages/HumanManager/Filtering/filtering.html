@@ -9,12 +9,27 @@
 <div class="stages">
     <?!= _I(Tabs,{stages}) ?>
 </div>
-<div class="filters">
-    <?!= _I(Filters) ?>
+<? stages.forEach((stage,i)=>{?>
+<? const entriesArray = dataByStage[stage] ?>
+<div class="per-stage-container <?= i==0&&'active' ?>" id="<?= stage ?>-container">
+    <? if(entriesArray){ ?>
+    <div class="filters">
+        <?!= _I(Filters) ?>
+    </div>
+    <div class="page-per-stage">
+        <!-- Loop over stages -->
+        <div class="collapsibles">
+            <? entriesArray.forEach(function(entry){?>
+            <?!= _I(Collapsible, entry) ?>
+            <? }) ?>
+        </div>
+    </div>
+    <? }else{ ?>
+    <div class="no-one-in-stage">
+        No one reached this stage yet.
+    </div>
+    <? } ?>
 </div>
-<div class="collapsibles">
-    <? entriesArray.forEach(function(entry){?>
-        <?!= _I(Collapsible, entry) ?>
-    <? }) ?>
-</div>
+<? }) ?>
+
 <?!= _I(FilteringJS) ?>

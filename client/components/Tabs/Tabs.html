@@ -1,9 +1,22 @@
 <? const TabsCSS = "client/components/Tabs/Tabs-css" ?>
+<? const TabsJS = "client/components/Tabs/Tabs-js" ?>
 
 <?!= _I(TabsCSS) ?>
 
-<div class="tabs">
-    <? stages.forEach(stage=>{ ?>
-    <div class="stage-tab"><?= stage ?></div>
-    <? }) ?>
+<div class="tabs-collapsible">
+    <div class="tabs-header">
+        <div class="filters-header-content">Stages</div>
+    </div>
+    <div class="tabs-body">
+        <div class="tabs">
+            <? stages.forEach((stage,i)=>{ ?>
+            <div class="stage-tab <?= i==0&&'active' ?>" data-stage=<?= stage ?>>
+                <?= stage ?>
+            </div>
+            <? }) ?>
+        </div>
+    </div>
 </div>
+
+
+<?!= _I(TabsJS) ?>

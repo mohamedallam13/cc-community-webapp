@@ -38,7 +38,7 @@
         return mappedData;
     }
 
-    function getAllEntries(){
+    function getAllEntries({ eventId, divisionId }) {
         const response = APPLICATIONSBACKEND.handleRequest({ path: "getAllFullApplications", eventId, divisionId })
         if (!response) return []
         const { data } = response;
@@ -63,9 +63,15 @@
         const mappedData = data.map(entry => {
             const mappedDataObj = {}
             replaceValue(filteringMap, entry, mappedDataObj)
+            augmnentData(mappedDataObj, entry)
             return mappedDataObj
         })
         return mappedData
+    }
+
+    function augmnentData(mappedDataObj, entry) {
+        mappedDataObj.comments = entry.applicationComments;
+        mappedDataObj.stage = entry.currentStage;
     }
 
     function replaceValue(obj, entry, mappedDataObj) {
