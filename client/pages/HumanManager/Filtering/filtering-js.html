@@ -36,15 +36,10 @@
     commentsButtons.forEach(commentButton => {
         commentButton.addEventListener('click', event => {
             targetCommentButton = event.target
-            console.log(targetCommentButton)
             const userId = targetCommentButton.dataset.userid
-            console.log(userId)
             targetCommentBox = commentButton.previousElementSibling.firstElementChild;
-            console.log(targetCommentBox)
             const comment = targetCommentBox.value;
-            console.log(comment)
             const appendTo = targetCommentButton.parentElement.parentElement.getElementsByTagName('div')[0];
-            console.log(appendTo)
             if (comment.trim() != "") addCommentToDB({ userId, comment })
         })
     })
@@ -54,18 +49,93 @@
     }
 
     function addCommentInPage(HTMLContent) {
-        console.log(HTMLContent)
         const comments = targetCommentButton.parentElement.parentElement.getElementsByTagName('div')[0];
-        console.log(comments)
         if (comments.innerHTML == "No comments yet..") {
             comments.innerHTML = ""
             comments.insertAdjacentHTML('beforeend', HTMLContent)
-        }else comments.insertAdjacentHTML('beforeend', HTMLContent)
+        } else comments.insertAdjacentHTML('beforeend', HTMLContent)
         targetCommentBox.value = ""
     }
 
     function failedToAddComment() {
         console.log("failed to add comment")
+    }
+
+    // Decide on Candidates
+
+    let targetDecisionButton
+    let isDecisionInitiallySelected
+    let targetCollapisbleElement
+    let buttonColors = {
+        accept: {
+            color: "green",
+            fill: "lightgreen"
+        },
+        reject: {
+            color: "red",
+            fill: "pink"
+        },
+        defer: {
+            color: "gold",
+            fill: "#FFF380"
+        },
+    }
+
+    const decisionButtons = document.querySelectorAll(".decision-button");
+
+    decisionButtons.forEach(decisionButton => {
+        decisionButton.addEventListener('click', event => {
+            targetDecisionButton = event.target.closest('.decision-button-svg-container').parentElement;
+            isDecisionInitiallySelected = targetDecisionButton.classList.contains("selected")
+            targetCollapisbleElement = targetDecisionButton.parentElement.parentElement.parentElement.parentElement;
+            const userId = targetDecisionButton.dataset.userid
+            const decision = targetDecisionButton.dataset.decision
+            toggleButtonsInCard();
+            decideOnCandidate(userId, decision)
+        })
+    })
+
+    function toggleButtonsInCard() {
+        const allDecisionButtons = targetCollapisbleElement.querySelectorAll('.decision-button');
+        allDecisionButtons.forEach(decisionButton => {
+            removeIconSelected(decisionButton);
+        })
+        toggleButton()
+    }
+
+    function toggleButton(decisionButton) {
+        decisionButton = decisionButton || targetDecisionButton
+        console.log(targetDecisionButton)
+        if (isDecisionInitiallySelected) {
+            console.log("It is initially selected")
+            removeIconSelected()
+        } else {
+            console.log("It is not initially selected")
+            setIconSelected()
+        }
+    }
+
+    function removeIconSelected(decisionButton) {
+        decisionButton = decisionButton || targetDecisionButton
+        decisionButton.firstElementChild.firstElementChild.setAttribute("fill", "none");
+        decisionButton.style.color = "black";
+        decisionButton.classList.remove("selected");
+    }
+
+    function setIconSelected(decisionButton) {
+        decisionButton = decisionButton || targetDecisionButton
+        const decision = targetDecisionButton.dataset.decision;
+        const { fill, color } = buttonColors[decision];
+        decisionButton.firstElementChild.firstElementChild.setAttribute("fill", fill);
+        decisionButton.style.color = color;
+        decisionButton.classList.add("selected");
+    }
+
+    function decideOnCandidate(userId, decision) {
+        //Google Script Run
+        //On Success
+        targetCollapisbleElement.classList.add('decided')
+
     }
 
 </script>

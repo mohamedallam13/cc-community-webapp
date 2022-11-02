@@ -1,10 +1,12 @@
 <script>
-    const loaderOn = function () {
-        const loadingScreen = document.getElementById('loading').style.display = 'block';
+    const show = function (elementClass) {
+        elementClass = elementClass || 'loading'
+        const loadingScreen = document.getElementById().style.display = 'block';
     }
 
-    const loaderOff = function () {
-        const loadingScreen = document.getElementById('loading').style.display = 'none';
+    const hide = function (elementClass) {
+        elementClass = elementClass || 'loading'
+        const loadingScreen = document.getElementById().style.display = 'none';
     }
     //TODO: add parameter here distinguish between different loading element (passable)
 </script>

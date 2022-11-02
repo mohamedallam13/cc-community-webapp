@@ -16,14 +16,14 @@
                 <?!= _I(CollapsibleHeader, headerSection) ?>
             </div>
             <div class="decision-section">
-                <div class="decision-button d-b-accept">
-                    <?!= _I(thumbsUp) ?>
+                <div data-userId=<?=userId ?> data-decision ="accept" class="decision-button d-b-accept">
+                    <div class="decision-button-svg-container"><?!= _I(thumbsUp) ?></div>
                 </div>
-                <div class="decision-button d-b-defer">
-                    <?!= _I(minusCircle) ?>
+                <div data-userId=<?=userId ?> data-decision ="defer" class="decision-button d-b-defer">
+                    <div class="decision-button-svg-container"><?!= _I(minusCircle) ?></div>
                 </div>
-                <div class="decision-button d-b-reject">
-                    <?!= _I(thumbsDown) ?>
+                <div data-userId=<?=userId ?> data-decision ="reject" class="decision-button d-b-reject">
+                    <div class="decision-button-svg-container"><?!= _I(thumbsDown) ?></div>
                 </div>
             </div>
         </div>

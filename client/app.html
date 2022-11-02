@@ -16,6 +16,8 @@
   <title>Community by CC</title>
 </head>
 
+<?!= _I("app-css") ?>
+
 <body>
   <div class="App">
     <div class="app-loader">
@@ -27,9 +29,11 @@
 
 </body>
 
+<?!= _I("app-js") ?>
+
 <script>
   const fetchPage = function () {
-        loaderOn()
+        show()
         const user = "" //getUserFromCookie();
         const session = { user }
         const params = { session }
@@ -44,12 +48,12 @@
 
     const setAppPageContent = function (HTMLContent) {
         $('.app-container').html(HTMLContent);
-        loaderOff()
+        hide()
     }
 
     const setAppPageContentNotFound = function () {
         $('.app-container').html('<h1>SERVER ERROR!</h1>');
-        loaderOff()
+        hide()
     }
 
     // const getUserFromCookie = function () {
