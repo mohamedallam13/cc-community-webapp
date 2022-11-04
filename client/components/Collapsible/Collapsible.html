@@ -6,7 +6,7 @@
 <? const minusCircle = "client/icons/minus-circle" ?>
 
 <?!=_I(CollapsibleCSS) ?>
-<div class="collapsible">
+<div class="collapsible" <?!= filterDataSetString ?> >
     <div class="collapsible-item">
         <div class="collapsible-item-header">
             <div class="check-box-section">
@@ -24,7 +24,7 @@
                 </div>
                 <div data-userId=<?=userId ?> data-decision ="reject" class="decision-button d-b-reject">
                     <div class="decision-button-svg-container"><?!= _I(thumbsDown) ?></div>
-                </div>
+                </div> 
             </div>
         </div>
         <div class="collapsible-item-body">

@@ -14,7 +14,7 @@
 <div class="per-stage-container <?= i==0&&'active' ?>" id="<?= stage ?>-container">
     <? if(entriesArray){ ?>
     <div class="filters">
-        <?!= _I(Filters) ?>
+        <?!= _I(Filters, {filters}) ?>
     </div>
     <div class="page-per-stage">
         <!-- Loop over stages -->

@@ -14,7 +14,6 @@
     stageTabs.forEach(tab => {
         tab.addEventListener('click', event => {
             const stage = event.target.dataset.stage
-            console.log(stage)
             // has to be only sibilings
             document.querySelectorAll(".stage-tab")
                 .forEach(tab => tab.classList.remove('active'));
@@ -25,12 +24,5 @@
                 .forEach(tab => tab.classList.remove('active'));
             document.getElementById(stage + '-container').classList.add('active')
         })
-        // tabsHeader.classList.toggle('active')
-        // const tabsBody = tabsHeader.nextElementSibling;
-        // if (tabsHeader.classList.contains("active")) {
-        //     tabsBody.style.maxHeight = tabsBody.scrollHeight + "px";
-        // } else {
-        //     tabsBody.style.maxHeight = 0;
-        // }
     })
 </script>

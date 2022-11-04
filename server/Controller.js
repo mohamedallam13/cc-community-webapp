@@ -60,12 +60,14 @@ const PROPS_CONSTANTS = {
 
         const testFiltering_dev = function (req, res) {
             const entriesId = '1q53NgdwJg68num_cp797D_5greDv4w2v'
+            const filtersId =  '1BAUAlaUW9v0wrjNsWqCq0u2KZ5DugiFn'
             const entriesArray = readFromJSON(entriesId)
+            const filters = readFromJSON(filtersId)
             const dataByStage = groupBy(entriesArray, "stage")
             const stages = ['screening', 'interview', 'panel', 'final']
             const filteringPath = 'client/pages/HumanManager/Filtering/filtering'
             return MW.render('client/devIndex',
-                { ...PROPS_CONSTANTS, routedPage: filteringPath, prerendered: false, props: { dataByStage, stages } })
+                { ...PROPS_CONSTANTS, routedPage: filteringPath, prerendered: false, props: { dataByStage, stages, filters } })
         }
 
         // TESTING  Non prerendered (Hot) (from App)

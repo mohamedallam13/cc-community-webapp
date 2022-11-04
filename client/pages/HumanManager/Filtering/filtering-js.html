@@ -8,6 +8,7 @@
             collapsiblesHeader.classList.toggle('active')
             const collapsiblesBody = collapsiblesHeader.parentElement.nextElementSibling;
             if (collapsiblesHeader.classList.contains("active")) {
+                console.log(collapsiblesBody.scrollHeight)
                 collapsiblesBody.style.maxHeight = collapsiblesBody.scrollHeight + "px";
             } else {
                 collapsiblesBody.style.maxHeight = 0;
@@ -29,13 +30,16 @@
     })
 
     // Add comments
+
     let targetCommentButton
     let targetCommentBox
+    let targetCollapisbleBody
 
     const commentsButtons = document.querySelectorAll(".comment-add-button");
     commentsButtons.forEach(commentButton => {
         commentButton.addEventListener('click', event => {
             targetCommentButton = event.target
+            targetCollapisbleBody = targetCommentButton.parentElement.parentElement.parentElement.parentElement;
             const userId = targetCommentButton.dataset.userid
             targetCommentBox = commentButton.previousElementSibling.firstElementChild;
             const comment = targetCommentBox.value;
@@ -55,6 +59,7 @@
             comments.insertAdjacentHTML('beforeend', HTMLContent)
         } else comments.insertAdjacentHTML('beforeend', HTMLContent)
         targetCommentBox.value = ""
+        // targetCollapisbleBody.style.maxHeight = targetCollapisbleBody.scrollHeight + "px";
     }
 
     function failedToAddComment() {
@@ -106,13 +111,8 @@
     function toggleButton(decisionButton) {
         decisionButton = decisionButton || targetDecisionButton
         console.log(targetDecisionButton)
-        if (isDecisionInitiallySelected) {
-            console.log("It is initially selected")
-            removeIconSelected()
-        } else {
-            console.log("It is not initially selected")
-            setIconSelected()
-        }
+        if (isDecisionInitiallySelected) removeIconSelected()
+        else setIconSelected()
     }
 
     function removeIconSelected(decisionButton) {
@@ -134,8 +134,17 @@
     function decideOnCandidate(userId, decision) {
         //Google Script Run
         //On Success
-        targetCollapisbleElement.classList.add('decided')
+    }
 
+    function decisionRecorded(decision) {
+        targetCollapisbleElement.classList.add('decided');
+        targetCollapisbleElement.dataset.decision = decision;
+    }
+
+
+    function decisionNotRecorded() {
+        targetCollapisbleElement.dataset.decision = "pending";
+        removeIconSelected();
     }
 
 </script>

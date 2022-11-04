@@ -9,14 +9,46 @@
     <div class="filters-body">
         <div class="filters-body-content">
             <div class="filter-fields">
-                Filters go here
+                <? const passedToJS = {} ?>
+                <? Object.entries(filters).forEach(([title, filterObj])=>{ ?>
+                <? const {type, data} = filterObj; ?>
+                <div class="filter-input" data-type=<?= type ?> >
+                    <h1>
+                        <?= title ?>
+                    </h1>
+                    <? if(type == "list"){ ?>
+                    <? const {list} =  filterObj ?>
+                    <select>
+                        <? list.forEach(listItem=>{?>
+                        <option value=<?=listItem ?>>
+                            <?= listItem ?>
+                        </option>
+                        <? }) ?>
+                    </select>
+                    <? }else if(type == "range"){ ?>
+                    <? const {min, max} =  filterObj ?>
+                    <? passedToJS.min = min ?>
+                    <? passedToJS.max = max ?>
+                    <p>
+                        <label for="amount">Age range:</label>
+                        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                      </p>
+                      <div id="slider-range"></div>
+                    <!-- <input type="range" min=<?=min ?> max=
+                    <?= max ?> name="" id=
+                    <?= data ?>> -->
+                    <? } ?>
+                </div>
+                <? }) ?>
             </div>
             <div class="filter-buttons">
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Apply Filters</button>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Clear Filters</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Apply
+                    Filters</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Clear
+                    Filters</button>
             </div>
         </div>
     </div>
 </div>
-
-<?!= _I(FiltersJS) ?>
+<? const props = JSON.stringify(passedToJS) ?>
+<?!= _I(FiltersJS, {props}) ?>
