@@ -147,4 +147,83 @@
         removeIconSelected();
     }
 
+    /*
+
+    let filteringCriteria
+    let paginationSize = 10;
+
+    window.onload = applyFilters
+    
+    const applyFilters = function(){
+        getFiltersFromLocalStorage()
+        const {filteredInHTMLEntries, filterOutHTMLEntries} = applyFiltersToEntries()
+        paginate(filteredInHTMLEntries, filterOutHTMLEntries)
+    }
+
+    const getFiltersFromLocalStorage = function(){
+        const loadedCriteria = localStorage.getItem('filteringCriteria')
+        if(!loadedCriteria) filteringCriteria = {}
+        else filteringCriteria = JSON.parse(loadedCriteria);
+    }
+
+    const applyFiltersToEntries = function(){
+        const htmlEntriesOfStage = getHTMLEntriesOfStage()
+        return applyFiltersToHTNLEntries(htmlEntriesOfStage)
+    }
+
+    const getHTMLEntriesOfStage = function(){
+        const stage = getCurrentStage(); // OR DO IT TO ALL STAGES SO DONT JUST GET CURRENT STAGE  BUT ALL STAGES AND LOOP
+        const htmlEntriesOfStage = document.querySelectorAll('.collapsible').filter(HTMLElement=>HTMLElement.data.stage == stage)
+        return htmlEntriesOfStage
+    }
+
+    const getCurrentStage = function(){
+        const stage = document.querySelectorAll('.stages').filter(HTMLElement=>HTMLElement.classList.contains("active"))[0].value; //Get the active stage
+        return stage
+    }
+
+    const applyFiltersToHTNLEntries = function(htmlEntriesOfStage){
+        const filteredInHTMLEntries = []
+        const filterOutHTMLEntries = []
+        htmlEntriesOfStage.forEach(HTMLELement=>{
+            filteringCriteria
+        })
+        return {filteredInHTMLEntries, filterOutHTMLEntries}
+    }
+
+    const paginate = function(filteredInHTMLEntries, filterOutHTMLEntries){
+        clearStagesContainer()
+        const hiddenPage = createHiddenPage(filterOutHTMLEntries)
+        const visiblePages = createAllVisiblePages(filteredInHTMLEntries)
+    }
+
+    const createHiddenPage = function(filterOutHTMLEntries){
+        const pageContainer = createPageContainer(0)
+        pageContainer.innerHTML = filterOutHTMLEntries //TODO
+        pageContainer.style.display = 'hidden';
+    }
+
+    const createAllVisiblePages = function(filteredInHTMLEntries){
+        const segmentizedFilteredInHTMLEntries = segmentize(filteredInHTMLEntries)
+        segmentizedFilteredInHTMLEntries.forEach((segment,i)=>{
+            const pageNumber = i + 1;
+            const pageContainer = createPageContainer(pageNumber);
+            pageContainer.innerHTML = segment //TODO
+            if(i == 0) pageContainer.classList.add('active');
+        })
+
+    }
+
+    const segmentize = function(entries){
+        //TODO
+    }
+
+    const createPageContainer = function(pageNumber){
+        const createdHTMLElement = document.createHTMLELement()
+        createdHTMLElement.classList.add('page-container');
+        return createdHTMLElement;
+    }
+
+    */
+
 </script>
